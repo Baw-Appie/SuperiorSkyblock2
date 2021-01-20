@@ -102,6 +102,16 @@ public final class SSuperiorPlayer implements SuperiorPlayer {
         worldBorderEnabled = resultSet.getBoolean("toggledBorder");
     }
 
+    public SSuperiorPlayer(UUID player, String playerName){
+        OfflinePlayer offlinePlayer;
+        this.uuid = player;
+        this.name = (offlinePlayer = Bukkit.getOfflinePlayer(player)) == null || offlinePlayer.getName() == null ? playerName : offlinePlayer.getName();
+        this.islandLeader = this;
+        this.playerRole = SPlayerRole.guestRole();
+        this.disbands = plugin.getSettings().disbandCount;
+        this.userLocale = LocaleUtils.getDefault();
+    }
+
     public SSuperiorPlayer(UUID player){
         OfflinePlayer offlinePlayer;
         this.uuid = player;

@@ -48,4 +48,9 @@ public final class FactoriesHandler implements FactoriesManager {
         return playersFactory == null ? superiorPlayer : playersFactory.createPlayer(superiorPlayer);
     }
 
+    public SuperiorPlayer createPlayer(UUID player, String playerName) {
+        SSuperiorPlayer superiorPlayer = new SSuperiorPlayer(player, playerName);
+        return playersFactory == null ? superiorPlayer : playersFactory.createPlayer(superiorPlayer);
+    }
+
 }

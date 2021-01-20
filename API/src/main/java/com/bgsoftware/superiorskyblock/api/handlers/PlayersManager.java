@@ -31,6 +31,14 @@ public interface PlayersManager {
     SuperiorPlayer getSuperiorPlayer(UUID uuid);
 
     /**
+     * Get a player by it's uuid and username.
+     * @param uuid The uuid to check.
+     * @param playerName The username to check.
+     * @return The player with that uuid.
+     */
+    SuperiorPlayer getSuperiorPlayer(UUID uuid, String playerName);
+
+    /**
      * Get all the players that joined the server.
      */
     List<SuperiorPlayer> getAllPlayers();

@@ -84,6 +84,15 @@ public final class PlayersHandler extends AbstractHandler implements PlayersMana
         return players.get(uuid);
     }
 
+    @Override
+    public SuperiorPlayer getSuperiorPlayer(UUID uuid, String playerName){
+        if(!players.containsKey(uuid)) {
+            players.add(uuid, plugin.getFactory().createPlayer(uuid, playerName));
+            Executor.async(() -> plugin.getDataHandler().insertPlayer(players.get(uuid)), 1L);
+        }
+        return players.get(uuid);
+    }
+
     public List<SuperiorPlayer> matchAllPlayers(Predicate<? super SuperiorPlayer> predicate){
         return players.values().stream().filter(predicate).collect(Collectors.toList());
     }

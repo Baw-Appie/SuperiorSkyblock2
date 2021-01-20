@@ -12,7 +12,6 @@ import com.bgsoftware.superiorskyblock.hooks.AFKProvider_CMI;
 import com.bgsoftware.superiorskyblock.hooks.AFKProvider_Essentials;
 import com.bgsoftware.superiorskyblock.hooks.AsyncProvider;
 import com.bgsoftware.superiorskyblock.hooks.AsyncProvider_Default;
-import com.bgsoftware.superiorskyblock.hooks.BlocksProvider_AdvancedSpawners;
 import com.bgsoftware.superiorskyblock.hooks.BlocksProvider_Default;
 import com.bgsoftware.superiorskyblock.hooks.BlocksProvider_EpicSpawners;
 import com.bgsoftware.superiorskyblock.hooks.BlocksProvider_PvpingSpawners;
@@ -32,7 +31,6 @@ import com.bgsoftware.superiorskyblock.hooks.PermissionsProvider_Default;
 import com.bgsoftware.superiorskyblock.hooks.PermissionsProvider_LuckPerms;
 import com.bgsoftware.superiorskyblock.hooks.PlaceholderHook;
 import com.bgsoftware.superiorskyblock.hooks.BlocksProvider;
-import com.bgsoftware.superiorskyblock.hooks.BlocksProvider_MergedSpawner;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
 import com.bgsoftware.superiorskyblock.hooks.PricesProvider;
 import com.bgsoftware.superiorskyblock.hooks.PricesProvider_ShopGUIPlus;
@@ -110,13 +108,7 @@ public final class ProvidersHandler extends AbstractHandler implements Providers
                 String spawnersProvider = plugin.getSettings().spawnersProvider;
                 boolean auto = spawnersProvider.equalsIgnoreCase("Auto");
 
-                if (Bukkit.getPluginManager().isPluginEnabled("MergedSpawner") &&
-                        (auto || spawnersProvider.equalsIgnoreCase("MergedSpawner"))) {
-                    runSafe(() -> setSpawnersProvider(new BlocksProvider_MergedSpawner()));
-                } else if (Bukkit.getPluginManager().isPluginEnabled("AdvancedSpawners") &&
-                        (auto || spawnersProvider.equalsIgnoreCase("AdvancedSpawners"))) {
-                    runSafe(() -> setSpawnersProvider(new BlocksProvider_AdvancedSpawners()));
-                } else if (Bukkit.getPluginManager().isPluginEnabled("WildStacker") &&
+                if (Bukkit.getPluginManager().isPluginEnabled("WildStacker") &&
                         (auto || spawnersProvider.equalsIgnoreCase("WildStacker"))) {
                     runSafe(() -> setSpawnersProvider(new BlocksProvider_WildStacker()));
                 } else if (Bukkit.getPluginManager().isPluginEnabled("SilkSpawners") &&

@@ -39,7 +39,7 @@ repositories {
 
     if(mavenUsername != null && mavenPassword != null) {
         maven {
-            url 'https://repo.bg-software.com/repository/private-libs/'
+            url 'https://maven.repo.co.kr/repository/private/'
             credentials {
                 username mavenUsername
                 password mavenPassword

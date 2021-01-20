@@ -130,14 +130,30 @@ shadowJar {
 }
 
 build {
+    dependsOn ':API:build'
     dependsOn shadowJar
-    dependsOn publish
 }
 publish.shouldRunAfter shadowJar
 shadowJar.shouldRunAfter build
 
 publishing {
     repositories {
-        mavenLocal()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Baw-Appie/SuperiorSkyblock2")
+            credentials {
+                username = "Baw-Appie"
+                password = project.findProperty("githubToken") ?: System.getenv("githubToken")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            groupId = 'com.bgsoftware'
+            artifactId = 'superiorskyblock'
+            version = project.findProperty("version") ?: System.getenv("version")
+
+            artifact 'target/SuperiorSkyblock2.jar'
+        }
     }
 }

@@ -5,3 +5,6 @@
 build
 archive
 target
+
+# Ignore IntelliJ files
+.idea

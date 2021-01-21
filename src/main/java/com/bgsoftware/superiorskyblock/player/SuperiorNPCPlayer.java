@@ -85,6 +85,9 @@ public final class SuperiorNPCPlayer implements SuperiorPlayer {
     }
 
     @Override
+    public boolean canReceiveMessage() { return false; }
+
+    @Override
     public boolean hasFlyGamemode() {
         return false;
     }

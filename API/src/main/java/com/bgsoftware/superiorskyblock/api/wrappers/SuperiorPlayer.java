@@ -77,6 +77,11 @@ public interface SuperiorPlayer {
     boolean isOnline();
 
     /**
+     * Check player can receive message.
+     */
+    boolean canReceiveMessage();
+
+    /**
      * Check whether or not this player is in a gamemode with fly mode enabled.
      */
     boolean hasFlyGamemode();

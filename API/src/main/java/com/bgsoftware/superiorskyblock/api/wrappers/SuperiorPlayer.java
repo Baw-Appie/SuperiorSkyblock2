@@ -7,6 +7,7 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -80,6 +81,11 @@ public interface SuperiorPlayer {
      * Check player can receive message.
      */
     boolean canReceiveMessage();
+
+    /**
+     * Send message to player.
+     */
+    void sendMessage(TextComponent textComponent);
 
     /**
      * Check whether or not this player is in a gamemode with fly mode enabled.

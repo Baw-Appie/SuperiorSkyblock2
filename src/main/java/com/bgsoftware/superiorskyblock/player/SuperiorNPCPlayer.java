@@ -11,6 +11,7 @@ import com.bgsoftware.superiorskyblock.api.wrappers.BlockPosition;
 import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import com.bgsoftware.superiorskyblock.island.SPlayerRole;
 import com.bgsoftware.superiorskyblock.utils.teleport.TeleportUtils;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -86,6 +87,11 @@ public final class SuperiorNPCPlayer implements SuperiorPlayer {
 
     @Override
     public boolean canReceiveMessage() { return false; }
+
+    @Override
+    public void sendMessage(TextComponent textComponent) {
+
+    }
 
     @Override
     public boolean hasFlyGamemode() {

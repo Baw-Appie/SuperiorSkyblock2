@@ -28,6 +28,7 @@ import com.bgsoftware.superiorskyblock.utils.threads.Executor;
 import com.bgsoftware.superiorskyblock.wrappers.SBlockPosition;
 import com.google.common.base.Preconditions;
 import com.rpgfarm.bungee.BungeeUtil;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
@@ -189,6 +190,12 @@ public final class SSuperiorPlayer implements SuperiorPlayer {
     @Override
     public boolean canReceiveMessage() {
         return isOnline() || BungeeUtil.playerIsOnline(uuid.toString());
+    }
+
+    @Override
+    public void sendMessage(TextComponent textComponent) {
+        if(isOnline()) asPlayer().spigot().sendMessage(textComponent);
+        else BungeeUtil.sendMessage(uuid.toString(), textComponent);
     }
 
     @Override

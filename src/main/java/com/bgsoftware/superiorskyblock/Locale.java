@@ -6,10 +6,12 @@ import com.bgsoftware.superiorskyblock.utils.LocaleUtils;
 import com.bgsoftware.superiorskyblock.utils.StringUtils;
 import com.bgsoftware.superiorskyblock.utils.registry.Registry;
 import com.bgsoftware.superiorskyblock.utils.threads.Executor;
+import com.rpgfarm.bungee.BungeeUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -698,8 +700,14 @@ public enum Locale {
     }
 
     public void send(SuperiorPlayer superiorPlayer, Object... objects){
-        if(superiorPlayer.isOnline())
-            send(superiorPlayer.asPlayer(), superiorPlayer.getUserLocale(), objects);
+        if(superiorPlayer.canReceiveMessage())
+            send(superiorPlayer.getUniqueId().toString(), superiorPlayer.getUserLocale(), objects);
+    }
+
+    public void send(String uuid, java.util.Locale locale, Object... objects){
+        MessageContainer messageContainer = messages.get(locale);
+        if(messageContainer != null)
+            messageContainer.sendMessage(uuid, objects);
     }
 
     public void send(CommandSender sender, Object... objects){
@@ -868,6 +876,8 @@ public enum Locale {
 
         abstract void sendMessage(CommandSender sender, Object... objects);
 
+        abstract void sendMessage(String uuid, Object... objects);
+
     }
 
     private static final class RawMessage extends MessageContainer{
@@ -888,6 +898,13 @@ public enum Locale {
         void sendMessage(CommandSender sender, Object... objects) {
             if(message != null && !message.isEmpty())
                 sender.sendMessage(replaceArgs(message, objects));
+        }
+
+        @Override
+        void sendMessage(String uuid, Object... objects) {
+            if(message != null && !message.isEmpty()) {
+                BungeeUtil.sendMessage(uuid, replaceArgs(message, objects));
+            }
         }
     }
 
@@ -969,6 +986,11 @@ public enum Locale {
                 plugin.getNMSAdapter().sendTitle((Player) sender, Locale.replaceArgs(titleMessage, objects),
                         Locale.replaceArgs(subtitleMessage, objects), fadeIn, duration, fadeOut);
             }
+        }
+
+        @Override
+        void sendMessage(String uuid, Object... objects) {
+            sendMessage(Bukkit.getPlayer(UUID.fromString(uuid)), objects);
         }
 
         private static BaseComponent[] replaceArgs(BaseComponent[] textComponents, Object... objects){
